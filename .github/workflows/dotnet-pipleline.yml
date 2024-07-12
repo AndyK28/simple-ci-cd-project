@@ -53,6 +53,7 @@ jobs:
     env:
       Solution_Name: pipeline-config.sln                                # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: SimpleApp.Tests/SimpleApp.Tests.csproj     # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      DOTNET_ROOT: /usr/share/dotnet
 
     steps:
     - name: Checkout
@@ -80,7 +81,7 @@ jobs:
 
     # Execute all tests in the solution
     - name: Execute tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test
 
   # deploy:
   #   needs: build
