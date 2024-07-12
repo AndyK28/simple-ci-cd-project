@@ -112,7 +112,7 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t andyk28/simple-app:latest .
-        working-directory: .  # Adjust if your Dockerfile is in a different directory
+        working-directory: .
 
       - name: Push Docker image to Docker Hub
         run: docker push andyk28/simple-app:latest
