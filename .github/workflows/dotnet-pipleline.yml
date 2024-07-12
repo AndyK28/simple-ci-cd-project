@@ -96,6 +96,7 @@ jobs:
           DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
