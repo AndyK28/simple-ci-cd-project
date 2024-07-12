@@ -69,6 +69,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
   test:
+    needs: build
     runs-on: ubuntu-latest
 
     env:
