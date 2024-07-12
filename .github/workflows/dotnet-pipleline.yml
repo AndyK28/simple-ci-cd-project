@@ -78,10 +78,10 @@ jobs:
     - name: Execute tests
       run: dotnet test --no-build --verbosity normal
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Deploy
+  #   steps:
+  #   - name: Deploy
     
