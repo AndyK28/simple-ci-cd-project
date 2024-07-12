@@ -40,48 +40,61 @@ name: .NET CI/CD Using Docker
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
-
   build:
-
-    runs-on: ubuntu-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
 
     env:
-      Solution_Name: pipeline-config.sln                                # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: SimpleApp.Tests/SimpleApp.Tests.csproj     # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Solution_Name: pipeline-config.sln
       DOTNET_ROOT: /usr/share/dotnet
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    # Setup the .NET Core workload
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 6.0.x
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
 
-    # Restore dependencies
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    # Build dotnet project
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-    # check path
-    - name: path verification
-      run: pwd
+  test:
+    runs-on: ubuntu-latest
 
-    # Execute all tests in the solution
-    - name: Execute tests
-      run: dotnet test
+    env:
+      Test_Project_Path: SimpleApp.Tests/SimpleApp.Tests.csproj
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Test
+        run: dotnet test
+        env:
+          Solution_Name: ${{ env.Solution_Name }}
+          Test_Project_Path: ${{ env.Test_Project_Path }}
+          DOTNET_ROOT: ${{ env.DOTNET_ROOT }}
+
 
   # deploy:
   #   needs: build
