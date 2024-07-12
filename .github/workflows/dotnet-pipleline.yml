@@ -74,6 +74,10 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
+    # check path
+    - name: path verification
+      run: pwd
+
     # Execute all tests in the solution
     - name: Execute tests
       run: dotnet test --no-build --verbosity normal
