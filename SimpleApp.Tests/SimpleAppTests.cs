@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace PipelineConfig.Tests;
+namespace SimpleApp.Tests;
 
 public class SimpleAppTests
 {
